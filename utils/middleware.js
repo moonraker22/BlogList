@@ -30,22 +30,6 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
-// const tokenExtractor = (request, response, next) => {
-//   let token = ''
-//   const authorization = request.get('authorization')
-//   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-//     token = authorization.substring(7)
-//   }
-//   const decodedToken = jwt.verify(token, process.env.SECRET)
-//   if (!decodedToken) {
-//     return response.status(401).json({ error: 'token missing or invalid' })
-//   }
-//   request.user = decodedToken.username
-//   request.token = token
-//   request.userId = decodedToken.id
-//   next()
-// }
-
 const tokenExtractor = (request, response, next) => {
   try {
     const authorization = request.get('authorization')
@@ -59,8 +43,8 @@ const tokenExtractor = (request, response, next) => {
 
 const userExtractor = async (request, response, next) => {
   try {
-    const authorization = request.get('authorization')
-    const token = authorization.substring(7)
+    const auth = request.get('authorization')
+    const token = auth.substring(7)
     const decodedToken = jwt.verify(token, process.env.SECRET)
     request.user = await User.findById(decodedToken.id)
     logger.info('USER', request.user)

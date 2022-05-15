@@ -34,7 +34,7 @@ describe('user creation and login', () => {
     password: `${bcrypt.hash('password', 10)}`,
   }
 
-  test('creation succeeds with a fresh username', async () => {
+  test('user creation succeeds with a fresh username', async () => {
     const usersAtStart = await helper.usersInDb()
 
     await api

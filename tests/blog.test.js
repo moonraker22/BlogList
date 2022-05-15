@@ -84,7 +84,7 @@ describe('blogs api tests', () => {
     expect(response.body[0].id).toBeDefined()
   })
 
-  it('verifies that if the likes property is missing from the request, it will default to the value 0', async () => {
+  it('verifies that if the likes property is missing, it will default to 0', async () => {
     const token = await createToken()
 
     const newBlog = {
@@ -111,7 +111,7 @@ describe('blogs api tests', () => {
     expect(response.body.map((r) => r.likes)).toContain(0)
   })
 
-  it('verifies that if the url property is missing from the request, it will not be added to the database', async () => {
+  it('verifies that if the url property is missing, it will not be added to the database', async () => {
     const token = await createToken()
 
     const newBlog = {
