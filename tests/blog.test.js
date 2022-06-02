@@ -55,7 +55,7 @@ describe('blogs api tests', () => {
       .expect('Content-Type', /application\/json/)
 
     const response = await api.get('/api/blogs')
-
+    console.log(response)
     const titles = response.body.map((r) => r.title)
 
     expect(response.body.length).toBe(helper.initialBlogs.length + 1)

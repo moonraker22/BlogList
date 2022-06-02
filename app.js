@@ -24,7 +24,7 @@ app.use(express.json())
 // app.use(tokenExtractor)
 
 app.use(requestLogger)
-app.use('/api/blogs/', tokenExtractor, userExtractor, blogRouter)
+app.use('/api/blogs/', userExtractor, tokenExtractor, blogRouter)
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
 app.use(unknownEndpoint)

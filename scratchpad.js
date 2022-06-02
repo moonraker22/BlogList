@@ -316,3 +316,12 @@ const mostLikes = _.keys(tot).reduce(
   { author: '', likes: 0 }
 )
 console.log('mostLikes', mostLikes)
+
+const arr3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+const sorted = blogs.sort((a, b) => {
+  if (a.title < b.title) {
+    return -1
+  }
+})
+console.log('sorted', sorted)
