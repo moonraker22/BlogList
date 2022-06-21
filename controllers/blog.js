@@ -67,6 +67,7 @@ blogRouter.put('/:id', async (request, response) => {
   const blog = await Blog.findById(request.params.id)
   const user = request.user
   // console.log(blog._id.toString() === user.blogs.toString())
+  console.log(user)
   if (!user) {
     return response.status(401).json({ error: 'unauthorized' })
   }
