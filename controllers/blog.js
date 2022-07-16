@@ -20,6 +20,8 @@ blogRouter.post('/', async (request, response) => {
   const body = request.body
   const blog = new Blog(body)
   const user = await request.user
+  console.log(request.user)
+  console.log(request.headers)
   blog.author = request.user.username
 
   if (!user) {
@@ -82,6 +84,24 @@ blogRouter.put('/:id', async (request, response) => {
   // }
 
   blog.likes = request.body.likes
+  await blog.save()
+  response.json(blog)
+})
+
+blogRouter.post('/:id/comments', async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+  const user = request.user
+  console.log(user)
+  const comment = request.body.comment
+  // if (!user) {
+  //   return response.status(401).json({ error: 'unauthorized' })
+  // }
+
+  if (!blog) {
+    return response.status(404).json({ error: 'blog not found' })
+  }
+
+  blog.comments = blog.comments.concat(comment)
   await blog.save()
   response.json(blog)
 })

@@ -12,11 +12,9 @@ usersRouter.post('/', async (request, response) => {
   }
 
   if (password.length < 3 || username.length < 3) {
-    return response
-      .status(400)
-      .json({
-        error: 'username and password must be at least 3 characters long',
-      })
+    return response.status(400).json({
+      error: 'username and password must be at least 3 characters long',
+    })
   }
 
   const existingUser = await User.findOne({ username })
@@ -43,6 +41,15 @@ usersRouter.post('/', async (request, response) => {
 usersRouter.get('/', async (request, response) => {
   const users = await User.find({}).populate('blogs', { title: 1, author: 1 })
   response.json(users)
+})
+
+usersRouter.get('/:id', async (request, response) => {
+  const user = await User.findById(request.params.id)
+  if (!user) {
+    return response.status(404).json({ error: 'user not found' })
+  }
+
+  response.json(user)
 })
 
 module.exports = usersRouter
